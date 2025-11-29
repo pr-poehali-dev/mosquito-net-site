@@ -11,6 +11,7 @@ const Index = () => {
   const [height, setHeight] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('1');
   const [meshType, setMeshType] = useState<string>('standard');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   const calculatePrice = () => {
     const w = parseFloat(width);
@@ -29,6 +30,7 @@ const Index = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -64,8 +66,61 @@ const Index = () => {
               <Icon name="Phone" size={18} className="mr-2" />
               Заказать звонок
             </Button>
+            <button
+              className="md:hidden p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              <Icon name={mobileMenuOpen ? "X" : "Menu"} size={28} className="text-primary" />
+            </button>
           </div>
         </nav>
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t shadow-lg animate-fade-in">
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <button
+                onClick={() => scrollToSection('home')}
+                className="text-left py-3 px-4 hover:bg-primary/10 rounded-lg transition-colors font-medium"
+              >
+                Главная
+              </button>
+              <button
+                onClick={() => scrollToSection('catalog')}
+                className="text-left py-3 px-4 hover:bg-primary/10 rounded-lg transition-colors font-medium"
+              >
+                Каталог
+              </button>
+              <button
+                onClick={() => scrollToSection('calculator')}
+                className="text-left py-3 px-4 hover:bg-primary/10 rounded-lg transition-colors font-medium"
+              >
+                Калькулятор
+              </button>
+              <button
+                onClick={() => scrollToSection('services')}
+                className="text-left py-3 px-4 hover:bg-primary/10 rounded-lg transition-colors font-medium"
+              >
+                Услуги
+              </button>
+              <button
+                onClick={() => scrollToSection('about')}
+                className="text-left py-3 px-4 hover:bg-primary/10 rounded-lg transition-colors font-medium"
+              >
+                О нас
+              </button>
+              <button
+                onClick={() => scrollToSection('contacts')}
+                className="text-left py-3 px-4 hover:bg-primary/10 rounded-lg transition-colors font-medium"
+              >
+                Контакты
+              </button>
+              <Button className="w-full mt-2">
+                <Icon name="Phone" size={18} className="mr-2" />
+                Заказать звонок
+              </Button>
+            </div>
+          </div>
+        )}
       </header>
 
       <section id="home" className="pt-32 pb-20 px-4 bg-gradient-to-br from-orange-50 via-blue-50 to-green-50">
